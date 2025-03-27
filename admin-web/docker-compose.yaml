@@ -3,12 +3,14 @@ services:
     image: postgres:17
     env_file:
       - .env
+    restart: always
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_DATABASE}
     volumes:
-      - ./container-data/potgresql/data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
+      # - ./container-data/potgresql/data:/var/lib/postgresql/data
     ports:
       - "${DB_PORT}:5432"
   little-load-tracker-cache-database:
