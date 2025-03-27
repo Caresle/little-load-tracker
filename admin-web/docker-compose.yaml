@@ -8,7 +8,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_DATABASE}
     volumes:
-      - /var/lib/postgresql/little-load-tracker/data:/var/lib/postgresql/data
+      - ./container-data/potgresql/data:/var/lib/postgresql/data
     ports:
       - "${DB_PORT}:5432"
   little-load-tracker-cache-database:
@@ -18,4 +18,4 @@ services:
     ports:
       - "${REDIS_PORT}:6379"
     volumes:
-      - /var/lib/redis/little-load-tracker/data:/data
+      - ./container-data/redis/data:/data
