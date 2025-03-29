@@ -36,6 +36,7 @@
     "@tanstack/react-query-devtools": "^5.70.0",
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
+    "@types/pg": "^8.11.11",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
