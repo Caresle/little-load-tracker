@@ -22,3 +22,9 @@ create table if not exists loads_det (
     item_id int not null references items(id),
     quantity int not null
 );
+
+create table if not exists users (
+    id serial primary key,
+    username varchar(255) not null,
+    password varchar(255) not null
+)
