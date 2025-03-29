@@ -25,6 +25,11 @@ const routes = [
 		url: "/loads",
 		icon: Icons.Navbar.Load,
 	},
+	{
+		title: "Users",
+		url: "/users",
+		icon: Icons.Navbar.Users,
+	},
 ]
 
 export default function AppSidebar() {

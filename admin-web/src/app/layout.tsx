@@ -31,7 +31,7 @@ export default function RootLayout({
 			>
 				<SidebarProvider>
 					<AppSidebar />
-					<main className="bg-slate-200 w-full h-screen">
+					<main className="bg-slate-200 w-full h-screen flex flex-col overflow-y-auto">
 						<SidebarTrigger />
 						{children}
 					</main>
