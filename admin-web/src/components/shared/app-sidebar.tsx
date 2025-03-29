@@ -35,7 +35,7 @@ const routes = [
 export default function AppSidebar() {
 	return (
 		<Sidebar>
-			<SidebarHeader />
+			<SidebarHeader>Little Load Tracker</SidebarHeader>
 			<SidebarContent>
 				<SidebarGroup>
 					<SidebarGroupLabel>Application</SidebarGroupLabel>
