@@ -21,6 +21,11 @@ const routes = [
 		icon: Icons.Navbar.Home,
 	},
 	{
+		title: "Items",
+		url: "/items",
+		icon: Icons.Misc.Box,
+	},
+	{
 		title: "Loads",
 		url: "/loads",
 		icon: Icons.Navbar.Load,
@@ -35,16 +40,18 @@ const routes = [
 export default function AppSidebar() {
 	return (
 		<Sidebar>
-			<SidebarHeader>Little Load Tracker</SidebarHeader>
+			<SidebarHeader className="select-none">Little Load Tracker</SidebarHeader>
 			<SidebarContent>
 				<SidebarGroup>
-					<SidebarGroupLabel>Application</SidebarGroupLabel>
+					<SidebarGroupLabel className="select-none">
+						Application
+					</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
 							{routes.map(route => (
 								<SidebarMenuItem key={route.title}>
 									<SidebarMenuButton asChild>
-										<Link href={route.url}>
+										<Link href={route.url} className="select-none">
 											<route.icon />
 											{route.title}
 										</Link>

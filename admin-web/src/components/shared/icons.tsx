@@ -1,4 +1,5 @@
 import {
+	LuBox,
 	LuCirclePlus,
 	LuCircleX,
 	LuLayoutDashboard,
@@ -13,6 +14,7 @@ import {
 const Icons = {
 	Misc: {
 		Error: LuCircleX,
+		Box: LuBox,
 	},
 	Navbar: {
 		Home: LuLayoutDashboard,
