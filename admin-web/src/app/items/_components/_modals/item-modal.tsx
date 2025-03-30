@@ -17,10 +17,11 @@ import { useItemStore } from "../../_states/item.state"
 import { Item } from "@/entities/item.entity"
 import ItemService from "@/service/item.service"
 import { Textarea } from "@/components/ui/textarea"
+import { useItems } from "../../_hooks/use-items"
 
 export default function ItemModal() {
 	const { show, update, isEdit, item } = useItemStore(state => state)
-	// const { QUsers } = useUsers()
+	const { QItems } = useItems()
 
 	const mut = useMutation({
 		mutationFn: (body: Item) => {
@@ -32,7 +33,7 @@ export default function ItemModal() {
 		},
 		onSuccess: () => {
 			update({ show: false, item: {} as Item, isEdit: false })
-			// QUsers.refetch()
+			QItems.refetch()
 			if (isEdit) {
 				toast.success("Item updated")
 				return
@@ -63,6 +64,7 @@ export default function ItemModal() {
 						onChange={e => update({ item: { ...item, name: e.target.value } })}
 					/>
 					<Textarea
+						disabled={mut.isPending}
 						placeholder="Description"
 						value={item?.description ?? ""}
 						onChange={e =>
