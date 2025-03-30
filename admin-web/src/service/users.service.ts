@@ -1,4 +1,4 @@
-import { User } from "@/entities/user.entity"
+import { User, UserForm } from "@/entities/user.entity"
 import { axiosInstance } from "@/lib/axios"
 
 class UserServiceDefinition {
@@ -22,7 +22,7 @@ class UserServiceDefinition {
 		}
 	}
 
-	async create(user: User): Promise<string> {
+	async create(user: UserForm): Promise<string> {
 		try {
 			const res = await axiosInstance.post(`/${this.version}/users`, user)
 			return res.data
@@ -32,7 +32,7 @@ class UserServiceDefinition {
 		}
 	}
 
-	async update(user: User): Promise<string> {
+	async update(user: UserForm): Promise<string> {
 		try {
 			const res = await axiosInstance.put(
 				`/${this.version}/users/${user.id}`,
