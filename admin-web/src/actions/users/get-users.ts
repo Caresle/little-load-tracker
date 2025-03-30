@@ -4,7 +4,7 @@ import { User, UserMapper } from "@/entities/user.entity"
 import { pgQuery } from "@/lib/pg"
 
 const query = `
-    SELECT * FROM users
+    SELECT * FROM users order by id desc
 `
 
 export default async function getUsers(): Promise<User[] | Error> {
