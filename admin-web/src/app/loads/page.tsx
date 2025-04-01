@@ -1,5 +1,6 @@
 import React from "react"
+import LoadsClient from "./client"
 
-export default function PageLoad() {
-	return <div>LoadsPage</div>
+export default async function PageLoad() {
+	return <LoadsClient />
 }
