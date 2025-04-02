@@ -3,11 +3,18 @@ import Icons from "@/components/shared/icons"
 import { Button } from "@/components/ui/button"
 import React from "react"
 import LoadTable from "./_components/load-table"
+import { useLoadStore } from "./_states/load.state"
+import { Load } from "@/entities/load.entity"
+import LoadModal from "./_components/_modals/load-modal"
 
 const LoadActions = () => {
+	const { show, update } = useLoadStore(state => state)
+
 	return (
 		<div className="flex items-end w-full bg-white rounded-lg p-2 border">
-			<Button>
+			<Button
+				onClick={() => update({ show: true, isEdit: false, load: {} as Load })}
+			>
 				<Icons.Actions.Add />
 				Add Load
 			</Button>
@@ -26,6 +33,8 @@ const LoadContent = () => {
 export default function LoadsClient() {
 	return (
 		<div className="w-full flex flex-col gap-2 p-2 overflow-y-auto">
+			<LoadModal />
+
 			<LoadActions />
 			<LoadContent />
 		</div>
