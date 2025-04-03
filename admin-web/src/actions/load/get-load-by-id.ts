@@ -8,7 +8,7 @@ const query = `
 	where id = $1
     order by id desc
 `
-export default async function getLoads(id: number): Promise<Load | Error> {
+export default async function getLoadById(id: number): Promise<Load | Error> {
 	try {
 		const loadRaw = (await pgQuery(query, [id]))?.[0]
 		const load = LoadMapper.toEntity(loadRaw ?? {})
