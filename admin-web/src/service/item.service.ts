@@ -35,7 +35,7 @@ class ItemServiceDefinition {
 	async update(item: Item): Promise<string> {
 		try {
 			const res = await axiosInstance.put(
-				`/${this.version}/users/${item.id}`,
+				`/${this.version}/items/${item.id}`,
 				item
 			)
 			return res.data

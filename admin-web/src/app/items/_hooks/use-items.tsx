@@ -38,5 +38,5 @@ export const ItemsProvider = ({
 		QItems,
 	}
 
-	return <ItemsContext.Provider value={value}>{children}</ItemsContext.Provider>
+	return <ItemsContext value={value}>{children}</ItemsContext>
 }

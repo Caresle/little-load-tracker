@@ -40,5 +40,5 @@ export const UsersProvider = ({
 		QUsers,
 	}
 
-	return <UsersContext.Provider value={value}>{children}</UsersContext.Provider>
+	return <UsersContext value={value}>{children}</UsersContext>
 }
