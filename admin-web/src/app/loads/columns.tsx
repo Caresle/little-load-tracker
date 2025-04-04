@@ -1,7 +1,6 @@
 import Icons from "@/components/shared/icons"
 import { Button } from "@/components/ui/button"
 import { Load } from "@/entities/load.entity"
-import { User } from "@/entities/user.entity"
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
 
 const columnsHelper = createColumnHelper<Load & { actions: Object }>()
@@ -16,6 +15,7 @@ export const useColumns = () => {
 					</Button>
 				</div>
 			),
+			size: 100,
 		}),
 		columnsHelper.accessor("loadType", {
 			header: () => (
@@ -25,6 +25,14 @@ export const useColumns = () => {
 					</Button>
 				</div>
 			),
+			cell: ({ getValue }) => {
+				return (
+					<div className="flex items-center gap-2 justify-center">
+						{getValue()}
+					</div>
+				)
+			},
+			size: 30,
 		}),
 		columnsHelper.accessor("loadStatus", {
 			header: () => (
@@ -34,6 +42,14 @@ export const useColumns = () => {
 					</Button>
 				</div>
 			),
+			cell: ({ getValue }) => {
+				return (
+					<div className="flex items-center gap-2 justify-center">
+						{getValue()}
+					</div>
+				)
+			},
+			size: 30,
 		}),
 		columnsHelper.accessor("actions", {
 			header: () => <></>,

@@ -6,6 +6,8 @@ import LoadTable from "./_components/load-table"
 import { useLoadStore } from "./_states/load.state"
 import { Load } from "@/entities/load.entity"
 import LoadModal from "./_components/_modals/load-modal"
+import LoadDeleteModal from "./_components/_modals/load-delete-modal"
+import LoadProvider from "./_hook/use-loads"
 
 const LoadActions = () => {
 	const { show, update } = useLoadStore(state => state)
@@ -30,13 +32,20 @@ const LoadContent = () => {
 	)
 }
 
-export default function LoadsClient() {
+export default function LoadsClient({
+	initialLoads = [],
+}: {
+	initialLoads: Load[]
+}) {
 	return (
-		<div className="w-full flex flex-col gap-2 p-2 overflow-y-auto">
-			<LoadModal />
+		<LoadProvider initialLoads={initialLoads}>
+			<div className="w-full flex flex-col gap-2 p-2 overflow-y-auto">
+				<LoadModal />
+				<LoadDeleteModal />
 
-			<LoadActions />
-			<LoadContent />
-		</div>
+				<LoadActions />
+				<LoadContent />
+			</div>
+		</LoadProvider>
 	)
 }
