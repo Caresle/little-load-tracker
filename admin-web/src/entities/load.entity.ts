@@ -9,7 +9,7 @@ export interface Load {
 
 export interface LoadDetail {
 	itemId: number
-	quanitty: number
+	quantity: number
 	itemName: string
 	loadDetId: number
 	itemDescription: string
@@ -46,7 +46,7 @@ export class LoadDetailMapper {
 	static toEntity(json: any): LoadDetail {
 		return {
 			itemId: Number(json.item_id),
-			quanitty: Number(json.quantity),
+			quantity: Number(json.quantity),
 			itemName: json.item_name,
 			loadDetId: Number(json.load_det_id),
 			itemDescription: json.item_description,
@@ -60,7 +60,7 @@ export class LoadDetailMapper {
 	static toJson(entity: LoadDetail): any {
 		return {
 			item_id: entity.itemId,
-			quantity: entity.quanitty,
+			quantity: entity.quantity,
 			item_name: entity.itemName,
 			load_det_id: entity.loadDetId,
 			item_description: entity.itemDescription,
