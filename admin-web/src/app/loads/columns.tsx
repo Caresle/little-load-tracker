@@ -2,10 +2,15 @@ import Icons from "@/components/shared/icons"
 import { Button } from "@/components/ui/button"
 import { Load } from "@/entities/load.entity"
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
+import { useLoadStore } from "./_states/load.state"
+import { useLoadDeleteStore } from "./_states/load-delete.state"
 
 const columnsHelper = createColumnHelper<Load & { actions: Object }>()
 
 export const useColumns = () => {
+	const { update } = useLoadStore(state => state)
+	const { update: updateDelete } = useLoadDeleteStore(state => state)
+
 	return [
 		columnsHelper.accessor("name", {
 			header: () => (
@@ -56,10 +61,19 @@ export const useColumns = () => {
 			cell: ({ row }) => {
 				return (
 					<div className="flex justify-end w-fit gap-2">
-						<Button size={"icon"}>
+						<Button
+							size={"icon"}
+							onClick={() =>
+								update({ isEdit: true, load: row.original, show: true })
+							}
+						>
 							<Icons.Actions.Edit />
 						</Button>
-						<Button size={"icon"} variant={"destructive"}>
+						<Button
+							size={"icon"}
+							variant={"destructive"}
+							onClick={() => updateDelete({ load: row.original, show: true })}
+						>
 							<Icons.Actions.Delete />
 						</Button>
 					</div>
