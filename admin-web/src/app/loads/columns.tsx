@@ -4,6 +4,8 @@ import { Load } from "@/entities/load.entity"
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table"
 import { useLoadStore } from "./_states/load.state"
 import { useLoadDeleteStore } from "./_states/load-delete.state"
+import LoadStatus from "./_components/load-status"
+import LoadType from "./_components/load-type"
 
 const columnsHelper = createColumnHelper<Load & { actions: Object }>()
 
@@ -30,12 +32,8 @@ export const useColumns = () => {
 					</Button>
 				</div>
 			),
-			cell: ({ getValue }) => {
-				return (
-					<div className="flex items-center gap-2 justify-center">
-						{getValue()}
-					</div>
-				)
+			cell: ({ row }) => {
+				return <LoadType load={row.original} />
 			},
 			size: 30,
 		}),
@@ -47,12 +45,8 @@ export const useColumns = () => {
 					</Button>
 				</div>
 			),
-			cell: ({ getValue }) => {
-				return (
-					<div className="flex items-center gap-2 justify-center">
-						{getValue()}
-					</div>
-				)
+			cell: ({ row }) => {
+				return <LoadStatus load={row.original} />
 			},
 			size: 30,
 		}),
