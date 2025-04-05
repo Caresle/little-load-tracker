@@ -8,61 +8,44 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog"
-import React, { useMemo } from "react"
+import React, { useEffect } from "react"
 import Icons from "@/components/shared/icons"
 import { Input } from "@/components/ui/input"
 import { useLoadStore } from "../../_states/load.state"
-import { useQuery } from "@tanstack/react-query"
-import { queryKeys } from "@/constants/queryKeys"
-import ItemService from "@/service/item.service"
-import { Item } from "@/entities/item.entity"
+import { UseQueryResult } from "@tanstack/react-query"
+import Combobox from "@/components/shared/combobox"
+import { useCombobox } from "@/hooks/use-combobox"
+import ListItemContainer from "../list-item-container"
+import ContainerListItem from "../container-list-item"
+import { LOAD_STATUS_LIST, LOAD_TYPES_LIST } from "@/constants/load-types"
+import FormItem from "@/components/shared/form-item"
 
-const ListItem = ({ item }: { item: Item }) => {
-	return (
-		<div
-			className="p-2 border-l-2 border-l-blue-300/0 hover:border-l-blue-500 transition-all hover:border-l-2 cursor-pointer
-				hover:bg-blue-50 hover:text-blue-500 select-none
-			"
-		>
-			{item.name}
-		</div>
-	)
-}
-
-const ListItemContainer = () => {
-	const QItems = useQuery<Item[]>({
-		queryKey: [queryKeys.items],
-		queryFn: () => ItemService.getAll(),
-	})
-
-	const items = useMemo(() => QItems?.data ?? [], [QItems])
-
-	return (
-		<div className="w-1/3 bg-white rounded-lg p-2 border border-slate-300">
-			<div className="font-semibold text-slate-500 border-b">Items</div>
-			<div className="flex flex-col flex-1 overflow-y-auto divide-y">
-				{items.map(item => (
-					<ListItem key={item.id} item={item} />
-				))}
-			</div>
-		</div>
-	)
-}
-
-const ContainerListItem = () => {
-	return (
-		<div className="w-2/3 bg-white rounded-lg p-2">
-			<div className="font-semibold text-slate-500 border-b">
-				Items Container
-			</div>
-		</div>
-	)
+interface ComboboxOption {
+	name: string
 }
 
 export default function LoadModal() {
 	const { show, update, isEdit, load } = useLoadStore(state => state)
 
-	const onSubmit = () => {}
+	const comboboxType = useCombobox<ComboboxOption>()
+	const comboboxStatus = useCombobox<ComboboxOption>()
+
+	const onSubmit = () => {
+		load!.loadStatus = comboboxStatus.value?.name ?? ""
+		load!.loadType = comboboxType.value?.name ?? ""
+	}
+
+	useEffect(() => {
+		if (!show) {
+			comboboxStatus.clear()
+			comboboxType.clear()
+		}
+
+		if (show && isEdit) {
+			comboboxStatus.set({ name: load?.loadStatus ?? "" })
+			comboboxType.set({ name: load?.loadType ?? "" })
+		}
+	}, [show, isEdit])
 
 	return (
 		<Dialog open={show} onOpenChange={value => update({ show: value })}>
@@ -74,10 +57,43 @@ export default function LoadModal() {
 					</DialogTitle>
 					<DialogDescription>Manage the data of the load</DialogDescription>
 				</DialogHeader>
-				<div className="flex-1 flex">
-					<form className="flex flex-col gap-2 w-full">
-						<Input placeholder="Name" />
-						<div className="bg-slate-200 flex p-2 flex-1 gap-2 rounded-lg">
+				<div className="flex-1 flex overflow-y-auto">
+					<form className="flex flex-col gap-2 w-full overflow-y-auto p-1">
+						<div className="flex gap-2 w-full items-end">
+							<FormItem title="Name">
+								<Input
+									placeholder="Name"
+									value={load?.name ?? ""}
+									onChange={e =>
+										update({ load: { ...load!, name: e.target.value } })
+									}
+								/>
+							</FormItem>
+
+							<FormItem title="Type">
+								<Combobox<ComboboxOption>
+									combobox={comboboxType}
+									Query={
+										{
+											data: LOAD_TYPES_LIST,
+										} as UseQueryResult<ComboboxOption[]>
+									}
+									label={"name"}
+								/>
+							</FormItem>
+							<FormItem title="Status">
+								<Combobox<ComboboxOption>
+									combobox={comboboxStatus}
+									Query={
+										{
+											data: LOAD_STATUS_LIST,
+										} as UseQueryResult<ComboboxOption[]>
+									}
+									label={"name"}
+								/>
+							</FormItem>
+						</div>
+						<div className="bg-slate-200 flex p-2 flex-1 gap-2 rounded-lg overflow-y-auto">
 							<ListItemContainer />
 							<ContainerListItem />
 						</div>
