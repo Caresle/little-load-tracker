@@ -1,7 +1,11 @@
 import {
 	LuBox,
+	LuBoxes,
+	LuChevronDown,
+	LuChevronUp,
 	LuCirclePlus,
 	LuCircleX,
+	LuComponent,
 	LuLayoutDashboard,
 	LuLoaderCircle,
 	LuPencil,
@@ -15,6 +19,8 @@ const Icons = {
 	Misc: {
 		Error: LuCircleX,
 		Box: LuBox,
+		Boxes: LuBoxes,
+		Component: LuComponent,
 	},
 	Navbar: {
 		Home: LuLayoutDashboard,
@@ -27,6 +33,8 @@ const Icons = {
 		Loading: LuLoaderCircle,
 		Delete: LuTrash2,
 		Search: LuSearch,
+		DropdownOpen: LuChevronDown,
+		DropdownClosed: LuChevronUp,
 	},
 }
 
