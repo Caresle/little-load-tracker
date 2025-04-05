@@ -1,0 +1,25 @@
+export const LOAD_TYPES = {
+	SIMPLE: "SIMPLE",
+	COMPLEX: "COMPLEX",
+	MIXED: "MIXED",
+}
+
+export const LOAD_TYPES_LIST = [
+	{ name: LOAD_TYPES.SIMPLE },
+	{ name: LOAD_TYPES.COMPLEX },
+	{ name: LOAD_TYPES.MIXED },
+]
+
+export const LOAD_STATUS = {
+	PENDING: "PENDING",
+	IN_PROGRESS: "IN_PROGRESS",
+	COMPLETED: "COMPLETED",
+	FAILED: "FAILED",
+}
+
+export const LOAD_STATUS_LIST = [
+	{ name: LOAD_STATUS.PENDING },
+	{ name: LOAD_STATUS.IN_PROGRESS },
+	{ name: LOAD_STATUS.COMPLETED },
+	{ name: LOAD_STATUS.FAILED },
+]
