@@ -7,7 +7,7 @@ import { encrypt } from "@/lib/encrypt"
 
 export async function GET(
 	_: NextRequest,
-	{ params }: { params: { user: string } }
+	{ params }: { params: Promise<{ user: string }> }
 ) {
 	try {
 		const user = (await params).user
@@ -27,7 +27,7 @@ export async function GET(
 
 export async function PUT(
 	req: NextRequest,
-	{ params }: { params: { user: string } }
+	{ params }: { params: Promise<{ user: string }> }
 ) {
 	try {
 		const { user } = await params
@@ -54,7 +54,7 @@ export async function PUT(
 
 export async function DELETE(
 	_: NextRequest,
-	{ params }: { params: { user: string } }
+	{ params }: { params: Promise<{ user: string }> }
 ) {
 	try {
 		const { user } = await params

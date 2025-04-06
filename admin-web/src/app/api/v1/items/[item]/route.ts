@@ -6,12 +6,12 @@ import { pgQuery } from "@/lib/pg"
 
 export async function GET(
 	_: NextRequest,
-	{ params }: { params: { item: string } }
+	{ params }: { params: Promise<{ item: string }> }
 ) {
 	try {
 		const itemId = (await params).item
 		const item = await getItemById(+itemId)
-		return Response.json(item)
+		return Response.json(item, { status: 200 })
 	} catch (error) {
 		console.error(error)
 		return Response.json({ error: "Something went wrong" }, { status: 500 })
@@ -20,7 +20,7 @@ export async function GET(
 
 export async function PUT(
 	req: NextRequest,
-	{ params }: { params: { item: string } }
+	{ params }: { params: Promise<{ item: string }> }
 ) {
 	try {
 		const id = (await params).item
@@ -42,7 +42,7 @@ export async function PUT(
 
 export async function DELETE(
 	_: NextRequest,
-	{ params }: { params: { item: string } }
+	{ params }: { params: Promise<{ item: string }> }
 ) {
 	try {
 		const id = (await params).item

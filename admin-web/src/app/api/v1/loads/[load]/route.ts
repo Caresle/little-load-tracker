@@ -6,7 +6,7 @@ import getLoadById from "@/actions/load/get-load-by-id"
 
 export async function GET(
 	_: NextRequest,
-	{ params }: { params: { load: string } }
+	{ params }: { params: Promise<{ load: string }> }
 ) {
 	try {
 		const id = (await params).load
@@ -20,7 +20,7 @@ export async function GET(
 
 export async function PUT(
 	req: NextRequest,
-	{ params }: { params: { load: string } }
+	{ params }: { params: Promise<{ load: string }> }
 ) {
 	try {
 		const load = (await params).load
@@ -49,7 +49,7 @@ export async function PUT(
 
 export async function DELETE(
 	_: NextRequest,
-	{ params }: { params: { load: string } }
+	{ params }: { params: Promise<{ load: string }> }
 ) {
 	try {
 		const load = (await params).load
