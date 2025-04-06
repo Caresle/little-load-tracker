@@ -12,13 +12,20 @@ import React, { useEffect } from "react"
 import Icons from "@/components/shared/icons"
 import { Input } from "@/components/ui/input"
 import { useLoadStore } from "../../_states/load.state"
-import { UseQueryResult } from "@tanstack/react-query"
+import {
+	useMutation,
+	useQueryClient,
+	UseQueryResult,
+} from "@tanstack/react-query"
 import Combobox from "@/components/shared/combobox"
 import { useCombobox } from "@/hooks/use-combobox"
 import ListItemContainer from "../list-item-container"
 import ContainerListItem from "../container-list-item"
 import { LOAD_STATUS_LIST, LOAD_TYPES_LIST } from "@/constants/load-types"
 import FormItem from "@/components/shared/form-item"
+import LoadService from "@/service/load.service"
+import { Load } from "@/entities/load.entity"
+import { queryKeys } from "@/constants/queryKeys"
 
 interface ComboboxOption {
 	name: string
@@ -29,10 +36,29 @@ export default function LoadModal() {
 
 	const comboboxType = useCombobox<ComboboxOption>()
 	const comboboxStatus = useCombobox<ComboboxOption>()
+	const queryClient = useQueryClient()
+	const mut = useMutation({
+		mutationFn: (body: Load) => {
+			if (isEdit) {
+				return LoadService.update(body)
+			}
+
+			return LoadService.create(body)
+		},
+		onSuccess: () => {
+			update({ show: false, isEdit: false, load: {} as Load })
+			queryClient.invalidateQueries({
+				queryKey: [queryKeys.loads],
+			})
+		},
+	})
 
 	const onSubmit = () => {
 		load!.loadStatus = comboboxStatus.value?.name ?? ""
 		load!.loadType = comboboxType.value?.name ?? ""
+		load!.description = ""
+
+		mut.mutate(load!)
 	}
 
 	useEffect(() => {
@@ -103,7 +129,9 @@ export default function LoadModal() {
 					<DialogClose asChild>
 						<Button variant={"secondary"}>Cancel</Button>
 					</DialogClose>
-					<Button onClick={onSubmit}>{isEdit ? "Save" : "Create"}</Button>
+					<Button onClick={onSubmit} disabled={mut.isPending}>
+						{isEdit ? "Save" : "Create"}
+					</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>
