@@ -9,8 +9,8 @@ const query = `
 `
 export default async function getLoads(): Promise<Load[] | Error> {
 	try {
-		const loadsRaw = await pgQuery(query)
-		const loads = LoadMapper.toCollection(loadsRaw ?? [])
+		const loadsRaw = (await pgQuery(query)) ?? []
+		const loads = LoadMapper.toCollection(loadsRaw)
 		return loads
 	} catch (error) {
 		console.error(error)

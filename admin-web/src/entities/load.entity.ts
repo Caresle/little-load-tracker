@@ -23,7 +23,8 @@ export class LoadMapper {
 			description: json.description,
 			loadType: json.load_type,
 			loadStatus: json.load_status,
-			details: LoadDetailMapper.toCollection(json.details),
+			details:
+				(json.details && LoadDetailMapper.toCollection(json.details)) ?? [],
 		}
 	}
 
