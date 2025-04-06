@@ -18,7 +18,7 @@ create table if not exists loads (
 
 create table if not exists loads_det (
     id serial primary key,
-    load_id int not null references loads(id),
+    load_id int not null references loads(id) on delete cascade,
     item_id int not null references items(id),
     quantity int not null
 );
