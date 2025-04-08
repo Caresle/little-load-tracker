@@ -14,6 +14,13 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text(
+                "Little Load Tracker",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               Container(
                 decoration: BoxDecoration(
                     color: Colors.blue.shade800, shape: BoxShape.circle),
@@ -30,27 +37,42 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               TextFormField(
-                decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.account_circle_rounded),
-                    border: OutlineInputBorder(),
-                    hintText: 'Username'),
+                decoration: inputDecoration.copyWith(
+                    hintText: 'Username',
+                    prefixIcon: Icon(
+                      Icons.account_circle_rounded,
+                    )),
               ),
               const SizedBox(height: 8),
               TextFormField(
                 obscureText: true,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.key_rounded),
-                  border: OutlineInputBorder(),
+                decoration: inputDecoration.copyWith(
                   hintText: 'Password',
+                  prefixIcon: Icon(Icons.key_rounded),
                 ),
               ),
               const SizedBox(height: 8),
               SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      style: buttonPrimary,
-                      onPressed: () {},
-                      child: Text('Login')))
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                  style: buttonPrimary,
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.login_rounded,
+                    color: Colors.white,
+                  ),
+                  label: Text('Login'),
+                ),
+              ),
+              const SizedBox(height: 8),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: buttonOutlined,
+                  onPressed: () {},
+                  child: Text('Create Account'),
+                ),
+              ),
             ],
           ),
         ),
