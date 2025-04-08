@@ -1,4 +1,22 @@
 services:
+  # web:
+  #   build:
+  #     context: .
+  #     args:
+  #       SALT: ${SALT}
+  #       DB_USERNAME: ${DB_USERNAME}
+  #       DB_PASSWORD: ${DB_PASSWORD}
+  #       DB_DATABASE: ${DB_DATABASE}
+  #       DB_PORT: ${DB_PORT}
+  #       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+  #   container_name: little-load-tracker-web
+  #   ports:
+  #     - "4000:3000"
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - little-load-tracker-db
+  #     - little-load-tracker-cache-database
   little-load-tracker-db:
     image: postgres:17
     env_file:
@@ -13,6 +31,8 @@ services:
       # - ./container-data/potgresql/data:/var/lib/postgresql/data
     ports:
       - "${DB_PORT}:5432"
+    networks:
+      - little-load-tracker-network
   little-load-tracker-cache-database:
     image: redis:7.4.2-alpine
     env_file:
@@ -21,3 +41,7 @@ services:
       - "${REDIS_PORT}:6379"
     volumes:
       - ./container-data/redis/data:/data
+
+networks:
+  little-load-tracker-network:
+    driver: bridge
