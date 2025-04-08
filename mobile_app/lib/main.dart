@@ -12,6 +12,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Little Load Tracker Mobile',
       routerConfig: appRouter,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.blue.shade500,
+      ),
     );
   }
 }
