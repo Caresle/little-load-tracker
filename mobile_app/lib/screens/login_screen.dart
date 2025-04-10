@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_app/config/theme/theme.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -56,7 +57,9 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   style: buttonPrimary,
-                  onPressed: () {},
+                  onPressed: () {
+                    context.go('/');
+                  },
                   icon: Icon(
                     Icons.login_rounded,
                     color: Colors.white,
