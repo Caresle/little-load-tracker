@@ -24,6 +24,28 @@ final ButtonStyle buttonOutlined = ElevatedButton.styleFrom(
   minimumSize: Size(120, 48),
 );
 
+final ButtonStyle buttonSecondary = ElevatedButton.styleFrom(
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(8),
+    ),
+  ),
+  backgroundColor: Colors.orange.shade800,
+  foregroundColor: Colors.white,
+  minimumSize: Size(120, 48),
+);
+
+final ButtonStyle buttonSecondaryTonal = FilledButton.styleFrom(
+  backgroundColor: Colors.orange.shade100,
+  foregroundColor: Colors.orange.shade900,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(8),
+    ),
+  ),
+  minimumSize: Size(120, 48),
+);
+
 final InputDecoration inputDecoration = InputDecoration(
   // prefixIcon: Icon(Icons.account_circle_rounded),
   border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
