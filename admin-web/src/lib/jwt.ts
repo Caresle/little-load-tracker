@@ -5,6 +5,14 @@ const alg = env.JWT_ALG
 const key = env.JWT_KEY
 const keyPub = env.JWT_KEY_PUB
 
+export interface TokenPayload {
+	username: string
+	role: string
+	iat: number
+	exp: number
+	permissions: string[]
+}
+
 export const sign = async (
 	payload: Record<string, string>
 ): Promise<string | null> => {
@@ -23,15 +31,16 @@ export const sign = async (
 	}
 }
 
-export const verify = async (
-	token: string
-): Promise<Record<string, string> | null> => {
+export const verify = async (token: string): Promise<TokenPayload | null> => {
 	try {
 		const publicKey = await importSPKI(keyPub.trim(), alg)
 		const { payload } = await jwtVerify(token, publicKey, {
 			algorithms: [alg],
 		})
-		return payload as Record<string, string>
+
+		if (!payload) return null
+
+		return payload as unknown as TokenPayload
 	} catch (error) {
 		console.error(error)
 		return null
