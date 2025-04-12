@@ -23,13 +23,15 @@ export const sign = async (
 	}
 }
 
-export const verify = async (token: string) => {
+export const verify = async (
+	token: string
+): Promise<Record<string, string> | null> => {
 	try {
 		const publicKey = await importSPKI(keyPub.trim(), alg)
 		const { payload } = await jwtVerify(token, publicKey, {
 			algorithms: [alg],
 		})
-		console.log(payload)
+		return payload as Record<string, string>
 	} catch (error) {
 		console.error(error)
 		return null
