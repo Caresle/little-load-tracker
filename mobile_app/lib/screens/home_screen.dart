@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobile_app/config/theme/theme.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -129,7 +130,9 @@ class _LoadCard extends StatelessWidget {
               width: double.infinity,
               child: FilledButton.tonal(
                 style: buttonSecondaryTonal,
-                onPressed: () {},
+                onPressed: () {
+                  context.push('/loads/id');
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

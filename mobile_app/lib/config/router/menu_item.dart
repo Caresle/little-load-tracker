@@ -55,7 +55,14 @@ final appMenuItems = <MenuItem>[
     path: '/loads',
     icon: Icons.home_rounded,
     isBottom: true,
-    widgetPage: HomeScreen(),
+    widgetPage: LoadScreen(),
+  ),
+  const MenuItem(
+    name: 'Loads  Id',
+    path: '/loads/id',
+    icon: Icons.home_rounded,
+    isBottom: true,
+    widgetPage: LoadIdScreen(),
   ),
   const MenuItem(
     name: 'Login',
