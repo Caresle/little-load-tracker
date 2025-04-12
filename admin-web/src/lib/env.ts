@@ -7,6 +7,9 @@ export const envSchema = z.object({
 	DB_DATABASE: z.string().min(1),
 	DB_PORT: z.string().min(1),
 	NEXT_PUBLIC_API_URL: z.string().min(1),
+	JWT_KEY: z.string().min(1),
+	JWT_KEY_PUB: z.string().min(1),
+	JWT_ALG: z.string().min(1),
 })
 
 export const env = envSchema.parse(process.env)
