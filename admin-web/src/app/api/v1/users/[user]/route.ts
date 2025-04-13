@@ -1,69 +1,19 @@
-import getUserById from "@/actions/users/get-user-by-id"
-import { pgQuery } from "@/lib/pg"
+import {
+	GET as getUser,
+	PUT as updateUser,
+	DELETE as deleteUser,
+} from "./controller"
+import { hasAccess } from "@/helpers/has-access"
+import { PERMISSIONS } from "@/constants/permissions"
 import { NextRequest } from "next/server"
-import { queriesUser } from "../queries"
-import { userUpdateSchema } from "../schema"
-import { encrypt } from "@/lib/encrypt"
 
-export async function GET(
-	_: NextRequest,
-	{ params }: { params: Promise<{ user: string }> }
-) {
-	try {
-		const user = (await params).user
+const GET = (req: NextRequest, params: any) =>
+	hasAccess(PERMISSIONS.users.getUsers, req, params, getUser)
 
-		const dbResult = await getUserById(+user)
+const PUT = (req: NextRequest, params: any) =>
+	hasAccess(PERMISSIONS.users.updateUser, req, params, updateUser)
 
-		if (dbResult instanceof Error) {
-			return Response.json({ error: "Something went wrong" }, { status: 500 })
-		}
+const DELETE = (req: NextRequest, params: any) =>
+	hasAccess(PERMISSIONS.users.deleteUser, req, params, deleteUser)
 
-		return Response.json(dbResult)
-	} catch (error) {
-		console.error(error)
-		return Response.json({ error: "Something went wrong" }, { status: 500 })
-	}
-}
-
-export async function PUT(
-	req: NextRequest,
-	{ params }: { params: Promise<{ user: string }> }
-) {
-	try {
-		const { user } = await params
-		const json = await req.json()
-		const validated = userUpdateSchema.parse({ ...json, id: +user })
-
-		if (validated.password) {
-			const hashPassword = encrypt(validated.password)
-			await pgQuery(queriesUser.updateOne, [
-				validated.name,
-				hashPassword,
-				+user,
-			])
-			return Response.json("user updated")
-		}
-
-		await pgQuery(queriesUser.updateOne, [validated.name, null, +user])
-		return Response.json("user updated")
-	} catch (error) {
-		console.error(error)
-		return Response.json({ error: "Something went wrong" }, { status: 500 })
-	}
-}
-
-export async function DELETE(
-	_: NextRequest,
-	{ params }: { params: Promise<{ user: string }> }
-) {
-	try {
-		const { user } = await params
-
-		await pgQuery(queriesUser.deleteOne, [+user])
-
-		return Response.json("user deleted")
-	} catch (error) {
-		console.error(error)
-		return Response.json({ error: "Something went wrong" }, { status: 500 })
-	}
-}
+export { GET, PUT, DELETE }
