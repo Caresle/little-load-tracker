@@ -14,7 +14,7 @@ export interface TokenPayload {
 }
 
 export const sign = async (
-	payload: Record<string, string>
+	payload: Record<string, any>
 ): Promise<string | null> => {
 	try {
 		const privateKey = await importPKCS8(key.trim(), alg)
