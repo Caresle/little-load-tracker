@@ -1,29 +1,12 @@
+import { GET as getItems, POST as createItem } from "./controller"
+import { hasAccess } from "@/helpers/has-access"
+import { PERMISSIONS } from "@/constants/permissions"
 import { NextRequest } from "next/server"
-import { itemSchema } from "./schema"
-import { pgQuery } from "@/lib/pg"
-import { itemsQuery } from "./queries"
-import getItems from "@/actions/items/get-items"
 
-export async function GET() {
-	try {
-		const items = await getItems()
-		return Response.json(items)
-	} catch (error) {
-		console.error(error)
-		return Response.json({ error: "Something went wrong" }, { status: 500 })
-	}
-}
+const GET = (req: NextRequest, params: any) =>
+	hasAccess(PERMISSIONS.items.getItems, req, params, getItems)
 
-export async function POST(req: NextRequest) {
-	try {
-		const json = await req.json()
-		const validated = itemSchema.parse(json)
+const POST = (req: NextRequest, params: any) =>
+	hasAccess(PERMISSIONS.items.createItem, req, params, createItem)
 
-		await pgQuery(itemsQuery.createOne, [validated.name, validated.description])
-
-		return Response.json({ success: "Item created" }, { status: 201 })
-	} catch (error) {
-		console.error(error)
-		return Response.json({ error: "Something went wrong" }, { status: 500 })
-	}
-}
+export { GET, POST }

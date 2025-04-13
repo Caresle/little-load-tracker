@@ -1,55 +1,19 @@
-import getItemById from "@/actions/items/get-item-by-id"
+import {
+	GET as getItem,
+	PUT as updateItem,
+	DELETE as deleteItem,
+} from "./controller"
+import { hasAccess } from "@/helpers/has-access"
+import { PERMISSIONS } from "@/constants/permissions"
 import { NextRequest } from "next/server"
-import { itemSchemaUpdate } from "../schema"
-import { itemsQuery } from "../queries"
-import { pgQuery } from "@/lib/pg"
 
-export async function GET(
-	_: NextRequest,
-	{ params }: { params: Promise<{ item: string }> }
-) {
-	try {
-		const itemId = (await params).item
-		const item = await getItemById(+itemId)
-		return Response.json(item, { status: 200 })
-	} catch (error) {
-		console.error(error)
-		return Response.json({ error: "Something went wrong" }, { status: 500 })
-	}
-}
+const GET = (req: NextRequest, params: any) =>
+	hasAccess(PERMISSIONS.items.getItems, req, params, getItem)
 
-export async function PUT(
-	req: NextRequest,
-	{ params }: { params: Promise<{ item: string }> }
-) {
-	try {
-		const id = (await params).item
-		const json = await req.json()
-		const validated = itemSchemaUpdate.parse({ ...json, id })
+const PUT = (req: NextRequest, params: any) =>
+	hasAccess(PERMISSIONS.items.updateItem, req, params, updateItem)
 
-		await pgQuery(itemsQuery.updateOne, [
-			validated.name,
-			validated.description,
-			id,
-		])
+const DELETE = (req: NextRequest, params: any) =>
+	hasAccess(PERMISSIONS.items.deleteItem, req, params, deleteItem)
 
-		return Response.json({ success: "Item updated" }, { status: 200 })
-	} catch (error) {
-		console.error(error)
-		return Response.json({ error: "Something went wrong" }, { status: 500 })
-	}
-}
-
-export async function DELETE(
-	_: NextRequest,
-	{ params }: { params: Promise<{ item: string }> }
-) {
-	try {
-		const id = (await params).item
-		await pgQuery(itemsQuery.deleteOne, [id])
-		return Response.json({ success: "Item deleted" }, { status: 200 })
-	} catch (error) {
-		console.error(error)
-		return Response.json({ error: "Something went wrong" }, { status: 500 })
-	}
-}
+export { GET, PUT, DELETE }
