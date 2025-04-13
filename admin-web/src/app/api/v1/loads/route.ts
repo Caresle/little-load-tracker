@@ -1,36 +1,12 @@
-import getLoads from "@/actions/load/get-loads"
 import { NextRequest } from "next/server"
-import { loadsSchema } from "./schema"
-import { pgQuery } from "@/lib/pg"
-import { QueriesLoads } from "./queries"
+import { GET as getLoads, POST as createLoad } from "./controller"
+import { hasAccess } from "@/helpers/has-access"
+import { PERMISSIONS } from "@/constants/permissions"
 
-export async function GET() {
-	try {
-		const loads = await getLoads()
-		return Response.json(loads)
-	} catch (error) {
-		console.error(error)
-		return Response.json({ error: "Something went wrong" }, { status: 500 })
-	}
-}
+const GET = (req: NextRequest, params: any) =>
+	hasAccess(PERMISSIONS.loads.getLoads, req, params, getLoads)
 
-export async function POST(req: NextRequest) {
-	try {
-		const validate = loadsSchema.parse(await req.json())
-		const id = (
-			await pgQuery(QueriesLoads.createHeader, [
-				validate.name,
-				validate.description,
-				validate.loadType,
-				validate.loadStatus,
-			])
-		)?.[0].id
+const POST = (req: NextRequest, params: any) =>
+	hasAccess(PERMISSIONS.loads.createLoad, req, params, createLoad)
 
-		await pgQuery(QueriesLoads.createDetails, [id, { items: validate.details }])
-
-		return Response.json("ok", { status: 200 })
-	} catch (error) {
-		console.error(error)
-		return Response.json({ error: "Something went wrong" }, { status: 500 })
-	}
-}
+export { GET, POST }
