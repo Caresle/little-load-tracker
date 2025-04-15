@@ -5,6 +5,8 @@ values (1, 'Item 1', 'Item 1 description'),
 (4, 'Item 4', 'Item 4 description'),
 (5, 'Item 5', 'Item 5 description');
 
+select setval('items_id_seq', 5);
+
 -- Simple load
 insert into loads (name, description, load_type, load_status)
 values ('Load 1', 'Load 1 description', 'SIMPLE', 'PENDING');
