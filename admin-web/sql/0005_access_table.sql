@@ -6,5 +6,6 @@ create table permissions(
 create table user_access(
 	id serial primary key,
 	permission_id int references permissions(id),
-	allow int
+	user_id int references users(id),
+	allow int default 1
 );
