@@ -1,3 +1,4 @@
+"use client"
 import React from "react"
 import {
 	Sidebar,
@@ -13,6 +14,7 @@ import {
 } from "../ui/sidebar"
 import Link from "next/link"
 import Icons from "./icons"
+import { useTheme } from "next-themes"
 
 const routes = [
 	{
@@ -38,6 +40,11 @@ const routes = [
 ]
 
 export default function AppSidebar() {
+	const { setTheme, theme } = useTheme()
+
+	const onChangeTheme = () => {
+		setTheme(theme === "dark" ? "light" : "dark")
+	}
 	return (
 		<Sidebar>
 			<SidebarHeader className="select-none">Little Load Tracker</SidebarHeader>
@@ -58,6 +65,18 @@ export default function AppSidebar() {
 									</SidebarMenuButton>
 								</SidebarMenuItem>
 							))}
+							<SidebarMenuItem>
+								<SidebarMenuButton asChild>
+									<div onClick={onChangeTheme}>
+										{theme === "dark" ? (
+											<Icons.Misc.Moon />
+										) : (
+											<Icons.Misc.Sun />
+										)}
+										Theme {theme === "dark" ? "Light" : "Dark"}
+									</div>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>
