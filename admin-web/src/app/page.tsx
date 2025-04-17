@@ -6,19 +6,34 @@ export default function Home() {
 					Little Load Tracker APP
 				</h1>
 
-				<div className="bg-white w-full flex-1 rounded-lg border border-slate-300 grid grid-cols-2 gap-2 p-2 grid-rows-12">
-					<div className="bg-slate-100 col-span-2 p-2 rounded-lg row-span-4 flex">
-						<div className="bg-white flex-1 p-2 rounded-lg border border-slate-300">
+				<div
+					className="bg-white w-full flex-1 rounded-lg border border-slate-300 grid grid-cols-2 gap-2 p-2 grid-rows-12
+				dark:bg-slate-800 dark:border-slate-700"
+				>
+					<div className="bg-slate-100 col-span-2 p-2 rounded-lg row-span-4 flex dark:bg-slate-700">
+						<div
+							className="bg-white flex-1 p-2 rounded-lg border border-slate-300
+						dark:bg-slate-800 dark:border-slate-700"
+						>
 							<h2>Header section</h2>
 						</div>
 					</div>
-					<div className="bg-slate-100 rounded-lg p-2 row-span-8 flex">
-						<div className="bg-white flex-1 p-2 rounded-lg border border-slate-300">
+					<div
+						className="bg-slate-100 rounded-lg p-2 row-span-8 flex dark:bg-slate-700
+						dark:border-slate-700"
+					>
+						<div
+							className="bg-white flex-1 p-2 rounded-lg border border-slate-300
+						dark:bg-slate-800 dark:border-slate-700"
+						>
 							<h2>Recent Transactions</h2>
 						</div>
 					</div>
-					<div className="bg-slate-100 rounded-lg p-2 row-span-8 flex">
-						<div className="bg-white flex-1 p-2 rounded-lg border border-slate-300">
+					<div className="bg-slate-100 rounded-lg p-2 row-span-8 flex dark:bg-slate-700 dark:border-slate-700">
+						<div
+							className="bg-white flex-1 p-2 rounded-lg border border-slate-300
+						dark:bg-slate-800 dark:border-slate-700"
+						>
 							<h2>Loads Tracker</h2>
 						</div>
 					</div>

@@ -21,7 +21,7 @@ export default function ContainerListItem() {
 	}
 
 	return (
-		<div className="w-2/3 bg-white rounded-lg p-2 flex flex-col overflow-y-auto">
+		<div className="w-2/3 bg-white rounded-lg p-2 flex flex-col overflow-y-auto dark:bg-slate-900 dark:border-slate-700">
 			<div className="font-semibold text-slate-500 border-b">
 				Items Container
 			</div>

@@ -14,7 +14,7 @@ import NoItems from "./_components/no-items"
 const ItemActions = () => {
 	const { update } = useItemStore(state => state)
 	return (
-		<div className="flex items-end w-full bg-white rounded-lg p-2 border">
+		<div className="flex items-end w-full bg-white rounded-lg p-2 border dark:bg-slate-800 dark:border-slate-700">
 			<Button
 				onClick={() => update({ show: true, isEdit: false, item: {} as Item })}
 			>
@@ -29,7 +29,7 @@ const ItemsContent = () => {
 	const { items, QItems } = useItems()
 
 	return (
-		<div className="bg-white rounded-lg flex-1 border flex flex-col p-2 gap-1 overflow-y-auto">
+		<div className="bg-white rounded-lg flex-1 border flex flex-col p-2 gap-1 overflow-y-auto dark:bg-slate-800 dark:border-slate-700">
 			{QItems?.isLoading && <Loading />}
 			{!QItems?.isLoading && items?.length <= 0 && <NoItems />}
 			{!QItems?.isLoading && items?.length > 0 && <ItemsTable />}

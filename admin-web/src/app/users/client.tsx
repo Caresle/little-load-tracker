@@ -15,7 +15,7 @@ import Loading from "./loading"
 const UserActions = () => {
 	const { update } = useUserStore(state => state)
 	return (
-		<div className="flex items-end w-full bg-white rounded-lg p-2 border">
+		<div className="flex items-end w-full bg-white rounded-lg p-2 border dark:bg-slate-800 dark:border-slate-700">
 			<Button
 				onClick={() => update({ show: true, isEdit: false, user: {} as User })}
 			>
@@ -31,7 +31,7 @@ const UserContent = () => {
 	const { users, QUsers } = useUsers()
 
 	return (
-		<div className="bg-white rounded-lg flex-1 border flex flex-col p-2 gap-1 overflow-y-auto">
+		<div className="bg-white rounded-lg flex-1 border flex flex-col p-2 gap-1 overflow-y-auto dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400">
 			{QUsers?.isLoading && <Loading />}
 			{!QUsers?.isLoading && users?.length <= 0 && <NoUsers />}
 			{!QUsers?.isLoading && users?.length > 0 && <UsersTable />}

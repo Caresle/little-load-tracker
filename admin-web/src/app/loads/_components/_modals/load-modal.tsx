@@ -119,7 +119,7 @@ export default function LoadModal() {
 								/>
 							</FormItem>
 						</div>
-						<div className="bg-slate-200 flex p-2 flex-1 gap-2 rounded-lg overflow-y-auto">
+						<div className="bg-slate-200 flex p-2 flex-1 gap-2 rounded-lg overflow-y-auto dark:bg-slate-800">
 							<ListItemContainer />
 							<ContainerListItem />
 						</div>

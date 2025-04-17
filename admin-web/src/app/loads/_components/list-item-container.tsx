@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 
 const NoItems = () => {
 	return (
-		<div className="bg-slate-100 flex-1 flex items-center justify-center rounded-lg">
+		<div className="bg-slate-100 flex-1 flex items-center justify-center rounded-lg dark:text-slate-400 dark:bg-slate-700">
 			NO ITEMS
 		</div>
 	)
@@ -37,7 +37,7 @@ export default function ListItemContainer() {
 	}, [QItems, name])
 
 	return (
-		<div className="w-1/3 bg-white rounded-lg p-2 border border-slate-300 flex flex-col overflow-y-auto gap-2">
+		<div className="w-1/3 bg-white rounded-lg p-2 border border-slate-300 flex flex-col overflow-y-auto gap-2 dark:bg-slate-900 dark:border-slate-700">
 			<div className="font-semibold text-slate-500">Items</div>
 			<Input
 				placeholder="Search"
