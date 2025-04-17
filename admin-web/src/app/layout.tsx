@@ -28,15 +28,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<body className="transition-all">
-				<Providers>
-					<SidebarProvider>
-						<AppSidebar />
-						<main className="bg-slate-100 w-full h-screen flex flex-col overflow-y-auto dark:bg-slate-900">
-							<SidebarTrigger />
-							{children}
-						</main>
-					</SidebarProvider>
-				</Providers>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	)
