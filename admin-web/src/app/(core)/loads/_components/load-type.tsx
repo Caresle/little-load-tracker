@@ -16,7 +16,7 @@ export default function LoadType({ load }: { load: Load }) {
 		return <Icons.Misc.Component />
 	}
 	return (
-		<div className="flex gap-2 justify-center items-center bg-slate-100 px-2 py-1 rounded-lg border border-slate-300">
+		<div className="flex gap-2 justify-center items-center bg-slate-100 px-2 py-1 rounded-lg border border-slate-300 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-400">
 			<Icon />
 			{load.loadType}
 		</div>

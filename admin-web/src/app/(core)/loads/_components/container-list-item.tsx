@@ -27,7 +27,10 @@ export default function ContainerListItem() {
 			</div>
 			<div className="flex-1 overflow-y-auto divide-y flex flex-col">
 				{details.map((detail, i) => (
-					<div className="p-1 transition-all hover:bg-slate-50" key={i}>
+					<div
+						className="p-1 transition-all hover:bg-slate-50 dark:hover:bg-slate-800"
+						key={i}
+					>
 						<div className="font-semibold flex items-center justify-between">
 							<div className="flex items-center gap-2">
 								<Icons.Misc.Box />

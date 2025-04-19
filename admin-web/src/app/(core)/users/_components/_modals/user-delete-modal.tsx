@@ -41,8 +41,10 @@ export default function UserDeleteModal() {
 					<DialogDescription>Manage the data of the user</DialogDescription>
 				</DialogHeader>
 				<div>Are you sure you want to delete this user?</div>
-				<div className="bg-slate-100 rounded-lg p-2 select-none">
-					<div className="bg-white rounded-lg p-2">{user?.name}</div>
+				<div className="bg-slate-100 rounded-lg p-2 select-none dark:bg-slate-800">
+					<div className="bg-white rounded-lg p-2 dark:bg-slate-900">
+						{user?.name}
+					</div>
 				</div>
 				<DialogFooter>
 					<DialogClose asChild>

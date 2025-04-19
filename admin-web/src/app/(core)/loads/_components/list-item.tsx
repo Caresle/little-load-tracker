@@ -22,6 +22,7 @@ export default function ListItem({ item }: { item: Item }) {
 		<div
 			className="p-2 border-l-2 border-l-blue-300/0 hover:border-l-blue-500 transition-all hover:border-l-2 cursor-pointer
 				hover:bg-blue-50 hover:text-blue-500 select-none flex items-center gap-2
+				dark:hover:bg-blue-800/20
 			"
 			onClick={onClickItem}
 		>

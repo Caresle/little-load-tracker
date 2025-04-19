@@ -49,8 +49,8 @@ export default function ItemDeleteModal() {
 				</DialogHeader>
 				<form className="flex flex-col gap-2">
 					<div>Are you sure you want to delete this item?</div>
-					<div className=" bg-slate-100 p-2 rounded-lg">
-						<div className="flex flex-col gap-2 bg-white rounded-lg p-2">
+					<div className=" bg-slate-100 p-2 rounded-lg dark:bg-slate-800">
+						<div className="flex flex-col gap-2 bg-white rounded-lg p-2 dark:bg-slate-900">
 							<Input
 								disabled
 								placeholder="Name"
