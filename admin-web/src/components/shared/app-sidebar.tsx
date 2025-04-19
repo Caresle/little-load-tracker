@@ -68,12 +68,13 @@ export default function AppSidebar() {
 							<SidebarMenuItem>
 								<SidebarMenuButton asChild>
 									<div onClick={onChangeTheme}>
-										{theme === "dark" ? (
+										Theme
+										{/* {theme === "dark" ? (
 											<Icons.Misc.Moon />
 										) : (
 											<Icons.Misc.Sun />
 										)}
-										Theme {theme === "dark" ? "Light" : "Dark"}
+										Theme {theme === "dark" ? "Light" : "Dark"} */}
 									</div>
 								</SidebarMenuButton>
 							</SidebarMenuItem>
