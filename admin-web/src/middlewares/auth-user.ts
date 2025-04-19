@@ -5,7 +5,7 @@ export const authUser = (next: Function) => {
 	return async (req: NextRequest, _next: Function) => {
 		const path = req.nextUrl.pathname
 
-		const whiteListApi = ["/api/v1/auth"]
+		const whiteListApi = ["/api/v1/auth", '/api/v1/init']
 		const whiteListRoutes = ["/login"]
 
 		if (whiteListApi.some(route => path.startsWith(route)))
