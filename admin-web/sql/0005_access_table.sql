@@ -6,6 +6,6 @@ create table permissions(
 create table user_access(
 	id serial primary key,
 	permission_id int references permissions(id),
-	user_id int references users(id),
+	user_id int references users(id) on delete cascade,
 	allow int default 1
 );
