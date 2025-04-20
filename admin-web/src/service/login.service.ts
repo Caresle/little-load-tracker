@@ -31,6 +31,16 @@ class LoginServiceDefinition {
 			return { success: false, token: "" }
 		}
 	}
+
+	async logout(): Promise<Boolean> {
+		try {
+			window.localStorage.removeItem("token")
+			return true
+		} catch (error) {
+			console.error(error)
+			return false
+		}
+	}
 }
 
 const LoginService = new LoginServiceDefinition("v1")

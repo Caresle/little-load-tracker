@@ -15,6 +15,14 @@ import {
 import Link from "next/link"
 import Icons from "./icons"
 import { useTheme } from "next-themes"
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "../ui/dropdown-menu"
+import LoginService from "@/service/login.service"
+import { useMutation } from "@tanstack/react-query"
 
 const routes = [
 	{
@@ -39,12 +47,41 @@ const routes = [
 	},
 ]
 
+const AppSidebarFooter = () => {
+	const mut = useMutation({
+		mutationFn: () => LoginService.logout(),
+		onSuccess: () => {
+			window.location.href = "/login"
+		},
+	})
+
+	return (
+		<SidebarFooter>
+			<SidebarMenu>
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<SidebarMenuButton className="flex items-center gap-2">
+							<Icons.Navbar.Users />
+							Username
+						</SidebarMenuButton>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent>
+						<DropdownMenuItem onClick={() => mut.mutate()}>
+							<span>Logout</span>
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
+			</SidebarMenu>
+		</SidebarFooter>
+	)
+}
 export default function AppSidebar() {
 	const { setTheme, theme } = useTheme()
 
 	const onChangeTheme = () => {
 		setTheme(theme === "dark" ? "light" : "dark")
 	}
+
 	return (
 		<Sidebar>
 			<SidebarHeader className="select-none">Little Load Tracker</SidebarHeader>
@@ -82,7 +119,7 @@ export default function AppSidebar() {
 					</SidebarGroupContent>
 				</SidebarGroup>
 			</SidebarContent>
-			<SidebarFooter />
+			<AppSidebarFooter />
 		</Sidebar>
 	)
 }
