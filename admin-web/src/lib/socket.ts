@@ -1,5 +1,11 @@
-import { io } from "socket.io-client"
+import { io, Socket } from "socket.io-client"
 
-const socket = io("http://localhost:4000")
+// const socket = io(process.env.NEXT_PUBLIC_SOCKET_URL)
+let socket: Socket
 
-export default socket
+export const getSocket = () => {
+	if (!socket) {
+		socket = io(process.env.NEXT_PUBLIC_SOCKET_URL)
+	}
+	return socket
+}

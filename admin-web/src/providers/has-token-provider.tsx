@@ -16,5 +16,5 @@ export default function HasTokenProvider({
 		}
 	}, [])
 
-	return <div>{children}</div>
+	return <>{children}</>
 }

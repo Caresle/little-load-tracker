@@ -1,0 +1,3 @@
+export const SOCKET_EVENTS = {
+	CREATE_LOAD: "CREATE_LOAD",
+}
