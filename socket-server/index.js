@@ -14,20 +14,20 @@ app.get("/", (_, res) => {
 
 io.on("connection", (socket) => {
   console.log("New client connected");
+  console.log(socket.id);
+
+  socket.on("ping", () => {
+    console.log("pong");
+  });
 
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });
 
-  socket.on("load", (data) => {
-    console.log(`Load data: ${JSON.stringify(data)}`);
-    socket.broadcast.emit("load", data);
-  });
-
-  socket.on("test", (data) => {
-    console.log("socket test event");
+  socket.on("CREATE_LOAD", (data) => {
+    console.log("socket create load event");
     console.log(data);
-    socket.broadcast.emit("test", data);
+    socket.broadcast.emit("CREATE_LOAD", data);
   });
 });
 
