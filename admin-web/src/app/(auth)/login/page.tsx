@@ -69,7 +69,13 @@ export default function LoginPage() {
 		"
 		>
 			<h1 className="text-2xl font-semibold">Little Load Tracker</h1>
-			<div className="flex-1 w-10/12 flex flex-col gap-2 justify-center">
+			<form
+				className="flex-1 w-10/12 flex flex-col gap-2 justify-center"
+				onSubmit={e => {
+					e.preventDefault()
+					onSubmit()
+				}}
+			>
 				<Input
 					placeholder="Username"
 					value={state.username}
@@ -101,8 +107,8 @@ export default function LoginPage() {
 					}
 				/>
 				<Button
+					type="submit"
 					className="w-full"
-					onClick={onSubmit}
 					disabled={
 						mut.isPending ||
 						state.username.length === 0 ||
@@ -111,7 +117,7 @@ export default function LoginPage() {
 				>
 					Login
 				</Button>
-			</div>
+			</form>
 		</div>
 	)
 }
