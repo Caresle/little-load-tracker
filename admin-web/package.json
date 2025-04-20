@@ -45,6 +45,7 @@
 		"@types/pg": "8.11.11",
 		"@types/react": "19",
 		"@types/react-dom": "19",
+		"@typescript-eslint/eslint-plugin": "^8.30.1",
 		"eslint": "9",
 		"eslint-config-next": "15.2.4",
 		"tailwindcss": "4",
