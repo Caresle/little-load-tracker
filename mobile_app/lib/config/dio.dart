@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:mobile_app/config/environtment.dart';
+import 'package:mobile_app/config/environment.dart';
 
 final dioInstance = Dio(
   BaseOptions(

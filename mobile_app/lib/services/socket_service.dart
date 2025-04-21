@@ -1,4 +1,4 @@
-import 'package:mobile_app/config/environtment.dart';
+import 'package:mobile_app/config/environment.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketService {
