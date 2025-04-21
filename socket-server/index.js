@@ -12,6 +12,11 @@ app.get("/", (_, res) => {
   return res.json("SOCKET SERVER LITTLE LOAD TRACKER");
 });
 
+app.get("/load", (_, res) => {
+  io.emit("CREATE_LOAD", { msg: "CREATED" });
+  return res.json("EMITTING THE EVENT CREATE_LOAD");
+});
+
 io.on("connection", (socket) => {
   console.log("New client connected");
   console.log(socket.id);
