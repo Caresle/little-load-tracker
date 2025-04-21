@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_app/config/theme/theme.dart';
+import 'package:mobile_app/services/socket_service.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final socket = SocketService.instance;
+
     return Scaffold(
       drawer: Drawer(
         child: ListView(
@@ -75,7 +78,15 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue.shade800,
         foregroundColor: Colors.white,
-        onPressed: () {},
+        onPressed: () {
+          socket.connect();
+          socket.emit("ping", "TEST");
+          socket.emit("CREATE_LOAD", {
+            "id": 1,
+            "name": "Load Test",
+            "description": "This is a test load",
+          });
+        },
         shape: CircleBorder(),
         tooltip: 'Scan QR LOAD',
         child: Icon(Icons.qr_code_2_rounded),
