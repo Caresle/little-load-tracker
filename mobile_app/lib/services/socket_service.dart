@@ -1,3 +1,4 @@
+import 'package:mobile_app/config/environtment.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketService {
@@ -15,7 +16,7 @@ class SocketService {
 
   void _initSocket() {
     _socket = IO.io(
-      'http://192.168.0.14:4000',
+      Environment.socketURL,
       IO.OptionBuilder().setTransports(['websocket']).build(),
     );
 
