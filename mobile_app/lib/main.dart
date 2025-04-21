@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/config/environtment.dart';
+import 'package:mobile_app/config/environment.dart';
 import 'package:mobile_app/config/router/app_router.dart';
 
 void main() async {

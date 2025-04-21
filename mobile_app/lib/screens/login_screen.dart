@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_app/config/theme/theme.dart';
+import 'package:mobile_app/services/login_service.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  void onSubmit(BuildContext context) async {
+    final res = await LoginService.login(
+        _usernameController.text, _passwordController.text);
+    if (res == null) {
+      return;
+    }
+    if (context.mounted) context.go('/');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +56,7 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               TextFormField(
+                controller: _usernameController,
                 decoration: inputDecoration.copyWith(
                     hintText: 'Username',
                     prefixIcon: Icon(
@@ -46,6 +65,7 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               TextFormField(
+                controller: _passwordController,
                 obscureText: true,
                 decoration: inputDecoration.copyWith(
                   hintText: 'Password',
@@ -57,9 +77,7 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   style: buttonPrimary,
-                  onPressed: () {
-                    context.go('/');
-                  },
+                  onPressed: () => onSubmit(context),
                   icon: Icon(
                     Icons.login_rounded,
                     color: Colors.white,
