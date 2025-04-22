@@ -1,6 +1,8 @@
 import express from "express";
 import { createServer } from "node:http";
 import { Server } from "socket.io";
+import socketLoadController from "./controllers/loads.controller";
+import socketItemController from "./controllers/items.controller";
 
 const app = express();
 const server = createServer(app);
@@ -29,11 +31,8 @@ io.on("connection", (socket) => {
     console.log("Client disconnected");
   });
 
-  socket.on("CREATE_LOAD", (data) => {
-    console.log("socket create load event");
-    console.log(data);
-    socket.broadcast.emit("CREATE_LOAD", data);
-  });
+  socketLoadController(socket);
+  socketItemController(socket);
 });
 
 server.listen(PORT, () => {
