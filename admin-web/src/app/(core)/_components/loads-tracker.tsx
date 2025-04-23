@@ -1,4 +1,6 @@
 import React from "react"
+import { useDashboard } from "../_hooks/use-dashboard"
+import Icons from "@/components/shared/icons"
 
 const LoadTrackerItem = () => {
 	return (
@@ -20,10 +22,28 @@ const LoadTrackerItem = () => {
 	)
 }
 
+const NoLoads = () => {
+	return (
+		<div
+			className="flex-1 flex flex-col gap-2 overflow-y-auto p-1 bg-slate-200 p-2 rounded-lg justify-center items-center uppercase font-semibold
+      text-slate-500 transition-all animate-pulse
+      "
+		>
+			<Icons.Actions.Show className="size-20" />
+			<div>No Loads to track</div>
+		</div>
+	)
+}
+
 const LoadsTrackerList = () => {
+	const { dashboardData } = useDashboard()
+	const loadsTracker = dashboardData.loads_tracker ?? []
+
+	if (!loadsTracker || loadsTracker?.length === 0) return <NoLoads />
+
 	return (
 		<div className="flex-1 flex flex-col gap-2 overflow-y-auto p-1">
-			{Array.from({ length: 10 }).map((_, i) => (
+			{loadsTracker.map((_, i) => (
 				<LoadTrackerItem key={i} />
 			))}
 		</div>
