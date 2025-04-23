@@ -13,20 +13,28 @@ import Icons from "@/components/shared/icons"
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
 import { useMutation } from "@tanstack/react-query"
-import { useItemStore } from "../../_states/item.state"
 import { Item } from "@/entities/item.entity"
 import ItemService from "@/service/item.service"
 import { Textarea } from "@/components/ui/textarea"
 import { useItemDeleteStore } from "../../_states/item-delete.state"
 import { useItems } from "../../_hooks/use-items"
+import { useSocket } from "@/hooks/use-socket"
+import { SOCKET_EVENTS } from "@/constants/socket-events"
 
 export default function ItemDeleteModal() {
 	const { show, update, item } = useItemDeleteStore(state => state)
 	const { QItems } = useItems()
+	const { emit } = useSocket({
+		[SOCKET_EVENTS.ITEMS.DELETE_ITEM]: data => {
+			console.log(`DELETE ITEM CALLBACK`)
+			console.log(data)
+		},
+	})
 
 	const mut = useMutation({
 		mutationFn: (body: Item) => ItemService.deleteOne(body),
 		onSuccess: () => {
+			emit(SOCKET_EVENTS.ITEMS.DELETE_ITEM, item)
 			update({ show: false, item: {} as Item })
 			QItems.refetch()
 			toast.success("User deleted")

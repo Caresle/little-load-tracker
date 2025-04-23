@@ -10,20 +10,29 @@ import {
 } from "@/components/ui/dialog"
 import React from "react"
 import Icons from "@/components/shared/icons"
-import { Input } from "@/components/ui/input"
 import { useLoadDeleteStore } from "../../_states/load-delete.state"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import LoadService from "@/service/load.service"
 import { Load } from "@/entities/load.entity"
 import { queryKeys } from "@/constants/queryKeys"
+import { useSocket } from "@/hooks/use-socket"
+import { SOCKET_EVENTS } from "@/constants/socket-events"
 
 export default function LoadDeleteModal() {
 	const { show, update, load } = useLoadDeleteStore(state => state)
 	const queryClient = useQueryClient()
 
+	const { emit } = useSocket({
+		[SOCKET_EVENTS.LOADS.DELETE_LOAD]: data => {
+			console.log("DELETE LOAD CALLBACK SOCKET")
+			console.log(data)
+		},
+	})
+
 	const mut = useMutation({
 		mutationFn: () => LoadService.deleteOne(load!),
 		onSuccess: () => {
+			emit(SOCKET_EVENTS.LOADS.DELETE_LOAD, load)
 			update({ show: false, load: {} as Load })
 			queryClient.invalidateQueries({
 				queryKey: [queryKeys.loads],

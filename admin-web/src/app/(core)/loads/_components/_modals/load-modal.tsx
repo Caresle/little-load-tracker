@@ -26,6 +26,8 @@ import FormItem from "@/components/shared/form-item"
 import LoadService from "@/service/load.service"
 import { Load } from "@/entities/load.entity"
 import { queryKeys } from "@/constants/queryKeys"
+import { useSocket } from "@/hooks/use-socket"
+import { SOCKET_EVENTS } from "@/constants/socket-events"
 
 interface ComboboxOption {
 	name: string
@@ -37,6 +39,18 @@ export default function LoadModal() {
 	const comboboxType = useCombobox<ComboboxOption>()
 	const comboboxStatus = useCombobox<ComboboxOption>()
 	const queryClient = useQueryClient()
+
+	const { emit } = useSocket({
+		[SOCKET_EVENTS.LOADS.CREATE_LOAD]: data => {
+			console.log("CREATE LOAD CALLBACK SOCKET")
+			console.log(data)
+		},
+		[SOCKET_EVENTS.LOADS.UPDATE_LOAD]: data => {
+			console.log("UPDATE LOAD CALLBACK SOCKET")
+			console.log(data)
+		},
+	})
+
 	const mut = useMutation({
 		mutationFn: (body: Load) => {
 			if (isEdit) {
@@ -50,6 +64,13 @@ export default function LoadModal() {
 			queryClient.invalidateQueries({
 				queryKey: [queryKeys.loads],
 			})
+
+			if (isEdit) {
+				emit(SOCKET_EVENTS.LOADS.UPDATE_LOAD, load)
+				return
+			}
+
+			emit(SOCKET_EVENTS.LOADS.CREATE_LOAD, load)
 		},
 	})
 

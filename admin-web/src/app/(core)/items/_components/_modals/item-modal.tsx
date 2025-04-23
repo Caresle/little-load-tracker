@@ -18,10 +18,22 @@ import { Item } from "@/entities/item.entity"
 import ItemService from "@/service/item.service"
 import { Textarea } from "@/components/ui/textarea"
 import { useItems } from "../../_hooks/use-items"
+import { SOCKET_EVENTS } from "@/constants/socket-events"
+import { useSocket } from "@/hooks/use-socket"
 
 export default function ItemModal() {
 	const { show, update, isEdit, item } = useItemStore(state => state)
 	const { QItems } = useItems()
+	const { emit } = useSocket({
+		[SOCKET_EVENTS.ITEMS.CREATE_ITEM]: data => {
+			console.log(`CREATE ITEM CALLBACK`)
+			console.log(data)
+		},
+		[SOCKET_EVENTS.ITEMS.UPDATE_ITEM]: data => {
+			console.log(`UPDATE ITEM CALLBACK`)
+			console.log(data)
+		},
+	})
 
 	const mut = useMutation({
 		mutationFn: (body: Item) => {
@@ -35,9 +47,11 @@ export default function ItemModal() {
 			update({ show: false, item: {} as Item, isEdit: false })
 			QItems.refetch()
 			if (isEdit) {
+				emit(SOCKET_EVENTS.ITEMS.UPDATE_ITEM, item)
 				toast.success("Item updated")
 				return
 			}
+			emit(SOCKET_EVENTS.ITEMS.CREATE_ITEM, item)
 			toast.success("Item created")
 		},
 	})
