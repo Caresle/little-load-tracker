@@ -1,6 +1,7 @@
 import Icons from "@/components/shared/icons"
 import { Button } from "@/components/ui/button"
 import React from "react"
+import { useDashboard } from "../_hooks/use-dashboard"
 
 const RecentTransactionItem = () => {
 	return (
@@ -27,10 +28,25 @@ const RecentTransactionItem = () => {
 	)
 }
 
+const NoRecentTransactions = () => {
+	return (
+		<div className="flex-1 flex flex-col gap-2 overflow-y-auto p-1 uppercase text-slate-400 font-semibold transition-all animate-pulse">
+			<Icons.Actions.Show className="size-20" />
+			<div>No Recent Transactions</div>
+		</div>
+	)
+}
+
 const RecentTransactionsList = () => {
+	const { dashboardData } = useDashboard()
+
+	const data = dashboardData.recent_transactions ?? []
+
+	if (!data || data?.length === 0) return <NoRecentTransactions />
+
 	return (
 		<div className="flex-1 flex flex-col gap-2 overflow-y-auto p-1">
-			{Array.from({ length: 10 }).map((_, i) => (
+			{data.map((_, i) => (
 				<RecentTransactionItem key={i} />
 			))}
 		</div>
