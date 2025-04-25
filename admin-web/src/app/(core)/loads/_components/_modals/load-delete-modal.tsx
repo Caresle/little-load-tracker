@@ -23,7 +23,7 @@ export default function LoadDeleteModal() {
 	const queryClient = useQueryClient()
 
 	const { emit } = useSocket({
-		[SOCKET_EVENTS.LOADS.DELETE_LOAD]: data => {
+		[SOCKET_EVENTS.LOADS.DELETE_LOAD]: (data: Load) => {
 			console.log("DELETE LOAD CALLBACK SOCKET")
 			console.log(data)
 		},

@@ -25,7 +25,7 @@ export default function ItemDeleteModal() {
 	const { show, update, item } = useItemDeleteStore(state => state)
 	const { QItems } = useItems()
 	const { emit } = useSocket({
-		[SOCKET_EVENTS.ITEMS.DELETE_ITEM]: data => {
+		[SOCKET_EVENTS.ITEMS.DELETE_ITEM]: (data: Item) => {
 			console.log(`DELETE ITEM CALLBACK`)
 			console.log(data)
 		},

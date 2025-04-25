@@ -25,11 +25,11 @@ export default function ItemModal() {
 	const { show, update, isEdit, item } = useItemStore(state => state)
 	const { QItems } = useItems()
 	const { emit } = useSocket({
-		[SOCKET_EVENTS.ITEMS.CREATE_ITEM]: data => {
+		[SOCKET_EVENTS.ITEMS.CREATE_ITEM]: (data: Item) => {
 			console.log(`CREATE ITEM CALLBACK`)
 			console.log(data)
 		},
-		[SOCKET_EVENTS.ITEMS.UPDATE_ITEM]: data => {
+		[SOCKET_EVENTS.ITEMS.UPDATE_ITEM]: (data: Item) => {
 			console.log(`UPDATE ITEM CALLBACK`)
 			console.log(data)
 		},

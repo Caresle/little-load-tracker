@@ -41,11 +41,11 @@ export default function LoadModal() {
 	const queryClient = useQueryClient()
 
 	const { emit } = useSocket({
-		[SOCKET_EVENTS.LOADS.CREATE_LOAD]: data => {
+		[SOCKET_EVENTS.LOADS.CREATE_LOAD]: (data: Load) => {
 			console.log("CREATE LOAD CALLBACK SOCKET")
 			console.log(data)
 		},
-		[SOCKET_EVENTS.LOADS.UPDATE_LOAD]: data => {
+		[SOCKET_EVENTS.LOADS.UPDATE_LOAD]: (data: Load) => {
 			console.log("UPDATE LOAD CALLBACK SOCKET")
 			console.log(data)
 		},

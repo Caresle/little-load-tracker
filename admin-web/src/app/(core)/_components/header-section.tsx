@@ -2,9 +2,7 @@ import React from "react"
 
 const HeaderSectionItem = () => {
 	return (
-		<div className="border dark:border-slate-700 dark:bg-slate-700 rounded-lg p-2 shadow">
-			Item 3
-		</div>
+		<div className="border dark:border-slate-700 dark:bg-slate-700 rounded-lg p-2 shadow"></div>
 	)
 }
 
