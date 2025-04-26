@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:mobile_app/config/environment.dart';
+import 'package:mobile_app/constants/token.dart';
+import 'package:mobile_app/helpers/shared_config.dart';
 
 final dioInstance = Dio(
   BaseOptions(
@@ -9,3 +11,18 @@ final dioInstance = Dio(
     },
   ),
 );
+
+class TokenInterceptor extends Interceptor {
+  @override
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
+    print('Here we are int he interceptor token');
+    final result = await SharedConfig.get(TokenConstants.key);
+    if (result != null) {
+      options.headers['Authorization'] = 'Bearer $result';
+    }
+    handler.next(options);
+  }
+}
