@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_app/config/theme/theme.dart';
+import 'package:mobile_app/providers/theme_provider.dart';
 import 'package:mobile_app/services/socket_service.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -9,6 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final socket = SocketService.instance;
+    final theme = context.read<ThemeProvider>();
 
     return Scaffold(
       drawer: Drawer(
@@ -44,8 +47,15 @@ class HomeScreen extends StatelessWidget {
                   Text('Settings'),
                 ],
               ),
-              onTap: () {},
+              onTap: () {
+                theme.toggleTheme();
+              },
             ),
+            SwitchListTile(
+              subtitle: Text('Dark Mode'),
+              value: theme.isDark ? true : false,
+              onChanged: (_) => theme.toggleTheme(),
+            )
           ],
         ),
       ),
