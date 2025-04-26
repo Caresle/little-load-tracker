@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final socket = SocketService.instance;
-    final theme = context.read<ThemeProvider>();
+    final theme = context.watch<ThemeProvider>();
 
     return Scaffold(
       drawer: Drawer(
@@ -110,12 +110,14 @@ class _LoadCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.watch<ThemeProvider>().isDark;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade400),
-        color: Colors.white,
+        border: Border.all(
+            color: isDark ? Colors.grey.shade800 : Colors.grey.shade400),
+        color: isDark ? Colors.grey.shade900 : Colors.white,
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

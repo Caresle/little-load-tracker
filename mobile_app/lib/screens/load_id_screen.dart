@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/config/theme/button.dart';
+import 'package:mobile_app/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoadIdScreen extends StatelessWidget {
   const LoadIdScreen({super.key});
@@ -61,11 +63,15 @@ class _ItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.read<ThemeProvider>().isDark;
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade400),
+        border: Border.all(
+            color: isDark ? Colors.grey.shade800 : Colors.grey.shade400),
+        color: isDark ? Colors.grey.shade900 : Colors.white,
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
