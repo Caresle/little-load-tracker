@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile_app/config/dio.dart';
 import 'package:mobile_app/config/theme/theme.dart';
+import 'package:mobile_app/constants/token.dart';
+import 'package:mobile_app/helpers/shared_config.dart';
 import 'package:mobile_app/services/login_service.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,6 +23,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if (res == null) {
       return;
     }
+    await SharedConfig.save(TokenConstants.key, res);
+
+    dioInstance.interceptors.add(TokenInterceptor());
     if (context.mounted) context.go('/');
   }
 
