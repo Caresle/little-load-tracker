@@ -1,8 +1,8 @@
 import express from "express";
 import { createServer } from "node:http";
 import { Server } from "socket.io";
-import socketLoadController from "./controllers/loads.controller";
-import socketItemController from "./controllers/items.controller";
+import socketLoadController from "./controllers/loads.controller.js";
+import socketItemController from "./controllers/items.controller.js";
 
 const app = express();
 const server = createServer(app);
