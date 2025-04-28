@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 import Icons from "./icons"
 import CustomSwitch from "./custom-switch"
 
-export default function ThemeSwitcher({ isOpen = true }) {
+export default function ThemeSwitcher({ isOpen = true }: { isOpen?: boolean }) {
 	const { theme, setTheme, resolvedTheme } = useTheme()
 
 	const onToggle = () => {

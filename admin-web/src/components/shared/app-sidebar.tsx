@@ -14,7 +14,6 @@ import {
 } from "../ui/sidebar"
 import Link from "next/link"
 import Icons from "./icons"
-import { useTheme } from "next-themes"
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -23,6 +22,7 @@ import {
 } from "../ui/dropdown-menu"
 import LoginService from "@/service/login.service"
 import { useMutation } from "@tanstack/react-query"
+import ThemeSwitcher from "./theme-switcher"
 
 const routes = [
 	{
@@ -75,13 +75,8 @@ const AppSidebarFooter = () => {
 		</SidebarFooter>
 	)
 }
+
 export default function AppSidebar() {
-	const { setTheme, theme } = useTheme()
-
-	const onChangeTheme = () => {
-		setTheme(theme === "dark" ? "light" : "dark")
-	}
-
 	return (
 		<Sidebar>
 			<SidebarHeader className="select-none">Little Load Tracker</SidebarHeader>
@@ -102,19 +97,7 @@ export default function AppSidebar() {
 									</SidebarMenuButton>
 								</SidebarMenuItem>
 							))}
-							<SidebarMenuItem>
-								<SidebarMenuButton asChild>
-									<div onClick={onChangeTheme}>
-										Theme
-										{/* {theme === "dark" ? (
-											<Icons.Misc.Moon />
-										) : (
-											<Icons.Misc.Sun />
-										)}
-										Theme {theme === "dark" ? "Light" : "Dark"} */}
-									</div>
-								</SidebarMenuButton>
-							</SidebarMenuItem>
+							<ThemeSwitcher />
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>
