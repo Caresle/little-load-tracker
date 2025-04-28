@@ -2,8 +2,13 @@ import Icons from "@/components/shared/icons"
 import { Button } from "@/components/ui/button"
 import React from "react"
 import { useDashboard } from "../_hooks/use-dashboard"
+import { useRecentTransactionStore } from "../_states/recent-transactions.state"
 
-const RecentTransactionItem = () => {
+const RecentTransactionItem = ({ item }) => {
+	const { update } = useRecentTransactionStore(state => state)
+
+	const onOpenTransaction = () => update({ show: true, item })
+
 	return (
 		<div
 			className="p-2 border rounded-lg dark:border-slate-600 dark:bg-slate-700 flex gap-2 transition-all
@@ -13,13 +18,13 @@ const RecentTransactionItem = () => {
 		>
 			<div className="flex items-center gap-2">
 				<div className="dark:bg-slate-700 dark:border-slate-600 border rounded-lg size-8 flex items-center justify-center bg-white">
-					I
+					{item.name?.[0]}
 				</div>
-				<div className="font-semibold">Load Name</div>
+				<div className="font-semibold">{item.name}</div>
 			</div>
-			<p>Load Description</p>
+			<p>{item.description}</p>
 			<div className="w-full flex justify-end items-center">
-				<Button>
+				<Button onClick={onOpenTransaction}>
 					<Icons.Actions.Show />
 					See Details
 				</Button>
@@ -46,8 +51,8 @@ const RecentTransactionsList = () => {
 
 	return (
 		<div className="flex-1 flex flex-col gap-2 overflow-y-auto p-1">
-			{data.map((_, i) => (
-				<RecentTransactionItem key={i} />
+			{data.map((transaction, i) => (
+				<RecentTransactionItem key={i} item={transaction} />
 			))}
 		</div>
 	)
