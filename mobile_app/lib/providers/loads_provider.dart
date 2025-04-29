@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/entities/load.dart';
 
 class LoadsProvider extends ChangeNotifier {
-  List<String> loads = [];
+  List<Load> loads = [];
 
-  void addLoad(String load) {
+  void setLoads(List<Load> loads) {
+    this.loads = loads;
+    notifyListeners();
+  }
+
+  void addLoad(Load load) {
     loads.add(load);
     notifyListeners();
   }
 
-  void removeLoad(String load) {
-    loads.remove(load);
+  void removeLoad(Load load) {
+    // loads.remove(load);
     notifyListeners();
   }
 }
