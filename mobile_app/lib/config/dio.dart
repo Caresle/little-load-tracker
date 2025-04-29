@@ -18,7 +18,6 @@ class TokenInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    print('Here we are int he interceptor token');
     final result = await SharedConfig.get(TokenConstants.key);
     if (result != null) {
       options.headers['Authorization'] = 'Bearer $result';
