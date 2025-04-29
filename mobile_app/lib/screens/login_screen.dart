@@ -19,8 +19,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void onSubmit(BuildContext context) async {
     final res = await LoginService.login(
-        _usernameController.text, _passwordController.text);
+        _usernameController.text.trim(), _passwordController.text.trim());
     if (res == null) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Invalid username or password'),
+          ),
+        );
+      }
       return;
     }
     await SharedConfig.save(TokenConstants.key, res);
