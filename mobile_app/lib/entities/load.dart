@@ -15,6 +15,13 @@ class Load {
     );
   }
 
+  factory Load.empty() => Load(
+        id: 0,
+        name: '',
+        description: '',
+        details: [],
+      );
+
   Load({
     required this.id,
     required this.name,
