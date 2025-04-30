@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/providers/loads_provider.dart';
-import 'package:mobile_app/widgets/home_widgets/load_card.dart';
+import 'package:mobile_app/widgets/home_widgets/loads_list.dart';
 import 'package:mobile_app/widgets/shared/app_drawer.dart';
 import 'package:mobile_app/widgets/shared/buttons/general_floating_button.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() {
+      if (!mounted) return;
+      context.read<LoadsProvider>().getLoads();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,28 +53,6 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: GeneralFloatingButton(),
-    );
-  }
-}
-
-class LoadsList extends StatelessWidget {
-  const LoadsList({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<LoadsProvider>(
-      builder: (context, value, _) {
-        final loads = value.loads;
-
-        return ListView.separated(
-          padding: const EdgeInsets.all(8),
-          itemCount: loads.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 8),
-          itemBuilder: (context, index) {
-            return LoadCard(load: loads[index]);
-          },
-        );
-      },
     );
   }
 }
