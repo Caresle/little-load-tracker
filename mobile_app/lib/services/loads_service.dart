@@ -19,4 +19,16 @@ class LoadsService {
       return [];
     }
   }
+
+  static Future<Load> getLoad(int id) async {
+    try {
+      final ans = await dioInstance.get('/v1/loads/$id');
+      final loadRaw = ans.data as Map<String, dynamic>;
+      final load = Load.fromJson(loadRaw);
+      return load;
+    } catch (e) {
+      print(e);
+      return Load.empty();
+    }
+  }
 }
