@@ -11,17 +11,21 @@ class LoadCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final isDark = context.watch<ThemeProvider>().isDark;
+    final colorScheme = theme.colorScheme;
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
-            color: isDark ? Colors.grey.shade800 : Colors.grey.shade400),
-        color: isDark ? Colors.grey.shade900 : Colors.white,
+          color: isDark ? Colors.grey.shade800 : Colors.grey.shade300,
+        ),
+        color: colorScheme.surface,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -30,46 +34,54 @@ class LoadCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.fire_truck_rounded),
-                    const SizedBox(width: 4),
-                    Text(load.name),
+                    const Icon(Icons.fire_truck_rounded),
+                    const SizedBox(width: 6),
+                    Text(
+                      load.name,
+                      style: theme.textTheme.titleMedium,
+                    ),
                   ],
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.more_horiz_rounded),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Chip(
-                  label: Text('chip'),
+                  icon: const Icon(Icons.more_horiz_rounded),
                 ),
               ],
             ),
-            Text(load.description),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
+            Wrap(
+              spacing: 6,
+              children: [
+                Chip(
+                  label: Text('Sample Tag'),
+                  backgroundColor: colorScheme.primaryContainer,
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+            Text(
+              load.description,
+              style: theme.textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
               child: FilledButton.tonal(
                 style: buttonSecondaryTonal,
                 onPressed: () {
-                  context.push('/loads/id');
+                  context.push('/loads/${load.id}');
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.remove_red_eye_rounded,
-                      color: Colors.orange.shade900,
-                    ),
+                    Icon(Icons.remove_red_eye_rounded,
+                        color: Colors.orange.shade900),
                     const SizedBox(width: 8),
-                    Text('View Load'),
+                    const Text('View Load'),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
