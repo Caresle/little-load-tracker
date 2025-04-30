@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/config/environment.dart';
 import 'package:mobile_app/config/router/app_router.dart';
+import 'package:mobile_app/providers/load_id_provider.dart';
 import 'package:mobile_app/providers/loads_provider.dart';
 import 'package:mobile_app/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ Future<void> main() async {
   await Environment.initEnvironment();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => LoadsProvider()),
+    ChangeNotifierProvider(create: (_) => LoadIdProvider()),
     ChangeNotifierProvider(create: (_) => ThemeProvider()),
   ], child: const MyApp()));
 }
