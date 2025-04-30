@@ -57,17 +57,31 @@ final appMenuItems = <MenuItem>[
     isBottom: true,
     widgetPage: LoadScreen(),
   ),
-  const MenuItem(
-    name: 'Loads  Id',
-    path: '/loads/id',
-    icon: Icons.home_rounded,
-    isBottom: true,
-    widgetPage: LoadIdScreen(),
-  ),
+  // const MenuItem(
+  //   name: 'Loads  Id',
+  //   path: '/loads/:id',
+  //   icon: Icons.home_rounded,
+  //   isBottom: true,
+  //   widgetPage: LoadIdScreen(),
+  // ),
   const MenuItem(
     name: 'Login',
     path: '/login',
     icon: Icons.login_rounded,
     widgetPage: LoginScreen(),
   ),
+];
+
+final dynamicRoutes = [
+  GoRoute(
+    path: '/loads/:id',
+    builder: (context, state) {
+      final id = state.pathParameters['id'];
+      if (id == null) {
+        return const Scaffold(body: Center(child: Text('No ID found')));
+      }
+
+      return LoadIdScreen(id: int.parse(id));
+    },
+  )
 ];
