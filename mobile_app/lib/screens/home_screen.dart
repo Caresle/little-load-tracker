@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:mobile_app/config/theme/theme.dart';
-import 'package:mobile_app/providers/theme_provider.dart';
-import 'package:mobile_app/services/socket_service.dart';
+import 'package:mobile_app/providers/loads_provider.dart';
+import 'package:mobile_app/widgets/home_widgets/load_card.dart';
+import 'package:mobile_app/widgets/shared/app_drawer.dart';
+import 'package:mobile_app/widgets/shared/buttons/general_floating_button.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,55 +10,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final socket = SocketService.instance;
-    final theme = context.watch<ThemeProvider>();
-
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue.shade600,
-              ),
-              child: Text(
-                'Little Load Tracker',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.fire_truck_rounded),
-                  const SizedBox(width: 8),
-                  Text('Loads'),
-                ],
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.settings_rounded),
-                  const SizedBox(width: 8),
-                  Text('Settings'),
-                ],
-              ),
-              onTap: () {
-                theme.toggleTheme();
-              },
-            ),
-            SwitchListTile(
-              subtitle: Text('Dark Mode'),
-              value: theme.isDark ? true : false,
-              onChanged: (_) => theme.toggleTheme(),
-            )
-          ],
-        ),
-      ),
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: Text('Little Load Tracker'),
         actions: [
@@ -69,109 +22,44 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Recent Loads'),
-                const SizedBox(height: 8),
-                _LoadCard(),
-                const SizedBox(height: 8),
-                _LoadCard(),
-              ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Recent Loads',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
             ),
-          ),
+            const SizedBox(height: 8),
+            const Expanded(child: LoadsList()),
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue.shade800,
-        foregroundColor: Colors.white,
-        onPressed: () {
-          socket.connect();
-          socket.emit("ping", "TEST");
-          socket.emit("CREATE_LOAD", {
-            "id": 1,
-            "name": "Load Test",
-            "description": "This is a test load",
-          });
-        },
-        shape: CircleBorder(),
-        tooltip: 'Scan QR LOAD',
-        child: Icon(Icons.qr_code_2_rounded),
-      ),
+      floatingActionButton: GeneralFloatingButton(),
     );
   }
 }
 
-class _LoadCard extends StatelessWidget {
-  const _LoadCard();
+class LoadsList extends StatelessWidget {
+  const LoadsList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.watch<ThemeProvider>().isDark;
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-            color: isDark ? Colors.grey.shade800 : Colors.grey.shade400),
-        color: isDark ? Colors.grey.shade900 : Colors.white,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.fire_truck_rounded),
-                    const SizedBox(width: 4),
-                    Text('1 - Load Test'),
-                  ],
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.more_horiz_rounded),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Chip(
-                  label: Text('chip'),
-                ),
-              ],
-            ),
-            Text('Description'),
-            const SizedBox(height: 8),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton.tonal(
-                style: buttonSecondaryTonal,
-                onPressed: () {
-                  context.push('/loads/id');
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.remove_red_eye_rounded,
-                      color: Colors.orange.shade900,
-                    ),
-                    const SizedBox(width: 8),
-                    Text('View Load'),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
+    return Consumer<LoadsProvider>(
+      builder: (context, value, _) {
+        final loads = value.loads;
+
+        return ListView.separated(
+          padding: const EdgeInsets.all(8),
+          itemCount: loads.length,
+          separatorBuilder: (_, __) => const SizedBox(height: 8),
+          itemBuilder: (context, index) {
+            return LoadCard(load: loads[index]);
+          },
+        );
+      },
     );
   }
 }
