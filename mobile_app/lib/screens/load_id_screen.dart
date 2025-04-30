@@ -4,7 +4,8 @@ import 'package:mobile_app/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class LoadIdScreen extends StatelessWidget {
-  const LoadIdScreen({super.key});
+  final int id;
+  const LoadIdScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
