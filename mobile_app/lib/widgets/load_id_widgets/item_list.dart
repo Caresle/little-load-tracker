@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/config/theme/button.dart';
+import 'package:mobile_app/entities/load.dart';
 import 'package:mobile_app/providers/theme_provider.dart';
+import 'package:mobile_app/widgets/load_id_widgets/item_header.dart';
+import 'package:mobile_app/widgets/load_id_widgets/status_options.dart';
 import 'package:provider/provider.dart';
 
 class ItemList extends StatelessWidget {
-  const ItemList({super.key});
+  final LoadDetail detail;
+  const ItemList({super.key, required this.detail});
 
   @override
   Widget build(BuildContext context) {
@@ -26,37 +29,8 @@ class ItemList extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    IconButton.outlined(
-                      style: IconButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {},
-                      icon: Icon(Icons.fire_truck_rounded),
-                    ),
-                    const SizedBox(width: 4),
-                    Text('Item name'),
-                  ],
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      style: buttonConfirmTonalIcon,
-                      onPressed: () {},
-                      icon: Icon(Icons.check_circle_outline_rounded),
-                    ),
-                    IconButton(
-                      style: buttonDangerTonalIcon,
-                      onPressed: () {},
-                      icon: Icon(Icons.remove_circle_outline_rounded),
-                    ),
-                  ],
-                ),
+                ItemHeader(detail: detail),
+                StatusOptions(),
               ],
             ),
             Row(
@@ -67,12 +41,12 @@ class ItemList extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text('10'),
+                Text(detail.quantity.toString()),
               ],
             ),
             Row(
               children: [
-                Text('1234'),
+                Text(detail.itemDescription),
               ],
             )
           ],
