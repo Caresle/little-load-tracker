@@ -42,6 +42,8 @@ export async function POST(req: NextRequest) {
 		if (!compare(password, user.password))
 			return Response.json("Invalid username or password", { status: 401 })
 
+		delete user.password
+
 		const token = await sign(user)
 
 		return Response.json(token, { status: 200 })
