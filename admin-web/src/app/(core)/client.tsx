@@ -5,6 +5,7 @@ import RecentTransactions from "./_components/recent-transactions"
 import LoadsTracker from "./_components/loads-tracker"
 import { DashboardData } from "@/helpers/queries/get-dashboard-data"
 import { DashboardProvider } from "./_hooks/use-dashboard"
+import TransactionDetailsModal from "./_components/_modals/transaction-details-modal"
 
 export default function Client({
 	dashboardData,
@@ -13,6 +14,7 @@ export default function Client({
 }) {
 	return (
 		<DashboardProvider initialData={dashboardData}>
+			<TransactionDetailsModal />
 			<div className="flex flex-1 justify-center overflow-y-auto">
 				<div className="flex-1 flex flex-col gap-1 p-2 max-w-7xl overflow-y-auto">
 					<h1 className="text-3xl text-center font-semibold uppercase">
